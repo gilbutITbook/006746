@@ -1,0 +1,9 @@
+WEB,Web Link,.url
+PDF,Portable Document Format,.pdf
+NOTE,Text Notes,.txt
+WORD,Microsoft Word,.doc?
+EXCEL,Microsoft Excel,.xls?
+POWERPOINT, Microsoft PowerPoint,.ppt?
+PAGES,iWork Pages,.pages
+KEYNOTE,iWork KeyNote,.keynote
+NUMBERS,iWork Numbers,.numbers

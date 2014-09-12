@@ -1,0 +1,56 @@
+### Spring XD Examples for Chapter 20: My First Spring XD Application
+
+
+### Start Spring XD and Shell
+$ xd-singlenode --transport rabbit
+$ xd-shell
+
+### Streams and Taps
+
+xd:> stream create --name docs-pdf --definition "rabbit | log"
+xd:> stream create --name pdftap --definition "tap:stream:docs-pdf > counter --name=pdfcount"
+
+### Deploy
+xd:> stream deploy docs-pdf
+xd:> stream deploy pdftap
+
+### XML Document Example - this can be send to the Spring XD through RabbitMq Web Console
+<document>
+	<documentid>94f68193-89a7-4834-a1e3-76768e9a5ddf</documentid>
+	<name>Spring XD</name>
+	<type>
+		<typeid>41e2d211-6396-4f23-9690-77bc2820d84b</typeid>
+		<name>PDF</name>
+		<extension>.pdf</pdf>
+	</type>
+</document>
+
+
+### URLS for Metrics:
+http://localhost:9393/management/metrics
+
+## PDF Counter
+http://localhost:9393/metrics/counters/pdfcount
+
+
+### Undeploy
+
+xd:>stream undeploy --name pdftap
+xd:>stream undeploy --name docs-pdf
+
+
+### List:
+xd:>stream list
+  Stream Name  Stream Definition                              Status
+  -----------  ---------------------------------------------  ------
+  docs-pdf     rabbit | log
+  pdftap       tap:stream:docs-pdf > counter --name=pdfcount
+
+
+### Destroy
+xd:>stream destroy --name pdftap
+Destroyed stream 'pdftap'
+
+xd:>stream destroy --name docs-pdf
+Destroyed stream 'docs-pdf'
+

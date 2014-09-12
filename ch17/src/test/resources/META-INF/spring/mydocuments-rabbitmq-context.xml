@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd">
+
+  <import resource="mydocuments-oxm-context.xml"/>
+	
+  <!-- RabbitMQ -->
+  <rabbit:connection-factory id="rabbitConnectionFactory" 
+                           host="localhost"/>
+      
+  <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+  
+  <rabbit:template id="rabbitTemplate" 
+   connection-factory="rabbitConnectionFactory" 
+   message-converter="messageConverter"/>
+  
+  <rabbit:direct-exchange name="mydocuments">
+    <rabbit:bindings>
+      <rabbit:binding key=".pdf" queue="docs-pdf"/>
+      <rabbit:binding key=".txt" queue="docs-txt"/>
+      <rabbit:binding key=".url" queue="docs-web"/>
+    </rabbit:bindings>
+  </rabbit:direct-exchange>
+  
+  <rabbit:queue name="docs-pdf"/>
+  <rabbit:queue name="docs-txt"/>
+  <rabbit:queue name="docs-web"/>
+  
+  <!-- Listeners -->
+  <rabbit:listener-container id="pdfListener" connection-factory="rabbitConnectionFactory">
+      <rabbit:listener  ref="pdfAdapter" queues="docs-pdf" />
+      <rabbit:listener ref="textAdapter" queues="docs-txt"/>
+      <rabbit:listener ref="webAdapter" queues="docs-web"/>
+  </rabbit:listener-container>
+  
+  <!-- Message Listener Adapters -->
+  <bean id="pdfAdapter" class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter">
+    <constructor-arg name="delegate" ref="pdfConsumer"/>
+    <constructor-arg name="messageConverter" ref="messageConverter"/>
+    <property name="defaultListenerMethod" value="process"/>
+  </bean>
+  
+  <bean id="textAdapter" class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter">
+    <constructor-arg name="delegate" ref="textConsumer"/>
+    <constructor-arg name="messageConverter" ref="messageConverter"/>
+    <property name="defaultListenerMethod" value="process"/>
+  </bean>
+  
+  <bean id="webAdapter" class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter">
+    <constructor-arg name="delegate" ref="webConsumer"/>
+    <constructor-arg name="messageConverter" ref="messageConverter"/>
+    <property name="defaultListenerMethod" value="process"/>
+  </bean>
+  
+  <!-- Message Converter -->
+  <bean id="messageConverter" class="org.springframework.amqp.support.converter.MarshallingMessageConverter">
+      <constructor-arg ref="xstreamMarshaller"/>
+  </bean>
+  
+ 
+  
+</beans>

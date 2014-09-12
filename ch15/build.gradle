@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+group = 'com.apress.isf'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile 'com.thoughtworks.xstream:xstream:1.4.7'
+    compile 'org.aspectj:aspectjrt:1.7.4'
+    compile 'org.springframework:spring-context:4.0.6.RELEASE'
+    compile 'org.springframework:spring-context-support:4.0.6.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.0.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.1.4.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.0.6.RELEASE'
+    compile 'org.springframework.data:spring-data-mongodb:1.5.2.RELEASE'
+
+    runtime 'cglib:cglib:3.1'
+    runtime 'org.aspectj:aspectjweaver:1.7.4'
+    runtime 'hsqldb:hsqldb:1.8.0.10'
+    runtime 'javax.mail:mail:1.4'
+    runtime 'org.jruby:jruby-complete:1.7.11'
+    runtime 'org.beanshell:bsh:2.0b5'
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
+}
+
+test {
+    testLogging {
+        events 'started', 'passed'
+    }
+    
+    onOutput { descriptor, event ->
+        logger.lifecycle(event.message)
+    }
+}

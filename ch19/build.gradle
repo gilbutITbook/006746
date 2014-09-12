@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://repo.spring.io/libs-snapshot"
+			url 'http://repo.spring.io/milestone'
+			url 'http://repo.spring.io/libs-release'
+		}
+		mavenLocal()
+	}
+	
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.4.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+//WAR: Enable the war plugin for creating a WAR file
+//apply plugin: 'war'
+apply plugin: 'spring-boot'
+
+
+// jar {
+// 	baseName = 'ch19-spring-boot'
+// 	version =  '0.1.0'
+// }
+
+//WAR: Enable the war section and comment the jar section out.
+//war {
+// 	baseName = 'ch19-spring-boot'
+// 	version =  '0.1.0'
+// }
+
+
+repositories {
+	mavenCentral()
+	maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+//WAR: Enable this section for a WAR creation
+//configurations {
+//    providedRuntime
+//}
+
+dependencies {
+
+	compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+	compile("org.springframework.boot:spring-boot-starter-jetty")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+	runtime 'hsqldb:hsqldb:1.8.0.10'
+	testCompile("junit:junit")
+}

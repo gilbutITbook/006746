@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { 
+            url "http://repo.spring.io/libs-snapshot"
+            url "http://repo.spring.io/milestone"
+            url "http://repo.spring.io/libs-release"
+        }
+        mavenLocal()
+    }
+    
+    dependencies {
+        classpath(group: 'org.springframework.boot', name:'spring-boot-gradle-plugin',
+            version: '1.1.1.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'ch19-spring-boot'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { 
+        url "http://repo.spring.io/libs-snapshot"
+        url 'http://repo.spring.io/milestone'
+        url 'http://repo.spring.io/libs-release' 
+    }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+    runtime 'hsqldb:hsqldb:1.8.0.10'
+    testCompile("junit:junit")
+}

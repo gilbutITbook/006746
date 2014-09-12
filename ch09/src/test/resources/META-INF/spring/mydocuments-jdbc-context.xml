@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+  <context:property-placeholder location="jdbc.properties" />
+  
+  <!-- JDBC -->
+  <bean id="dataSource" 
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
+ 
+  <bean id="engine" class="com.apress.isf.spring.service.SearchEngineService">
+    <property name="documentDAO" ref="documentDAO" />
+  </bean>
+    
+  <bean id="documentDAO" 
+      class="com.apress.isf.spring.data.DocumentRepository" init-method="initialize">
+    <property name="dataSource" ref="dataSource" />
+    <property name="schema" value="classpath:META-INF/data/schema.sql" />
+    <property name="data" value="classpath:META-INF/data/data.sql" />
+    <property name="queryAll">
+      <value>
+          select d.documentId, d.name, d.location, d.description as doc_desc, d.typeId, d.created, d.modified, 
+              t.name as type_name, t.description as type_desc, t.extension from documents d
+              join types t
+              on d.typeId = t.typeId
+      </value>
+    </property>
+  </bean>
+    
+  <bean id="typeDAO" class="com.apress.isf.spring.data.TypeDataRepository">      
+  </bean>
+
+</beans>

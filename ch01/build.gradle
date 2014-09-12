@@ -1,0 +1,14 @@
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+mainClassName = System.getProperty("mainClass")
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:4.0.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.1.4.RELEASE'
+}

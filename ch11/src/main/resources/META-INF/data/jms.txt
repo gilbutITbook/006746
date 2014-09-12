@@ -1,0 +1,14 @@
+<document>
+  <documentId>df569fa4-a513-4252-9810-818cade184ca</documentId>
+  <name>Apress Books</name>
+  <type>
+    <typeId>4980d2e4-a424-4ff4-a0b2-476039682f43</typeId>
+    <name>WEB</name>
+    <desc>Web Link</desc>
+    <extension>.url</extension>
+  </type>
+  <location>http://www.apress.com</location>
+  <description>Apress Books</description>
+  <created>2014-03-11 03:02:18.490 UTC</created>
+  <modified>2014-03-11 03:02:18.490 UTC</modified>
+</document>

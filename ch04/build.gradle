@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'com.apress.isf'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+    
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile 'org.springframework:spring-context:4.0.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-logging:1.1.4.RELEASE'
+    testCompile 'junit:junit:4.11'
+}
+
+test {
+    testLogging {
+        events 'started', 'passed'
+    }
+
+    onOutput { descriptor, event ->
+        logger.lifecycle(event.message)
+    }
+}
+

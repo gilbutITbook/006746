@@ -1,0 +1,5 @@
+Welcome to My Documents
+1. Show all Documents
+2. Show all Document's Types
+3. Search by Type
+4. Quit

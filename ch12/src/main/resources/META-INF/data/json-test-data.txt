@@ -1,0 +1,76 @@
+//----------------------------------------------------------------------------
+// Get All Records
+// URL (GET): http://localhost:8080/ch12/mydocuments/documents
+
+//----------------------------------------------------------------------------
+// For Adding a new Record
+// URL (POST): http://localhost:8080/ch12/mydocuments/document
+
+// UUID:  java.util.UUID.randomUUID().toString()
+// The following are some new IDs:
+// 1584b855-9ede-42b7-96a3-52119dc08cca
+// e4007f10-2f41-43fc-9f7d-8cef6fd51410
+// d2fa3d54-0e61-462c-a7d5-4ab994169ac4
+// e7ff584d-d7eb-4b70-9423-1f8fdbc6d530
+// 67387df1-c168-4496-bdce-b0441c05753b
+// 8297d42b-ec8e-4e61-872b-1b7f81b604d8
+// cbfc61c1-1dd0-4237-8a28-37885d8768cb
+// dba3dc4e-e767-46d9-b916-cb00c63e055f
+// 0f9edd22-b99b-4f69-9c54-1214ab2a18d6
+// 95c01307-0220-4e34-86f2-647dd6ef279d
+
+{
+    "documentId": "03b94c89-c4e0-4144-90ce-a64ebaaea8b5",
+    "name": "Spring Recipes.pdf",
+    "type": {
+        "typeId": "41e2d211-6396-4f23-9690-77bc2820d84b",
+        "name": "PDF",
+        "desc": "Portable Document Format",
+        "extension": ".pdf"
+    },
+    "location": "/docs/isfbook/Documents/Books/Spring Recipes.pdf",
+    "description": "A Spring Recipes from Apress",
+    "created": "2014-02-24",
+    "modified": "2014-02-26"
+}
+
+//The same ID in case of using:
+$ curl -X POST -H "Content-Type: application/json" -d '{"documentId": "03b94c89-c4e0-4144-90ce-a64ebaaea8b5","name":e": {"typeId": "41e2d211-6396-4f23-9690-77bc2820d84b","name": "PDF","desc": "Portable Document Format","extension": ".pdf"},"location": "/docs/isfbook/Documents/Books/Spring Recipes.pdf","description": "A Spring Recipes from Apress","created": "2014-02-24","modified": "2014-02-26"}' http://localhost:8080/ch12/mydocuments/documents
+
+//----------------------------------------------------------------------------
+// For FIND IDs:
+// URL (GET): http://localhost:8080/ch12/mydocuments/document/{id}
+
+// 431cddbf-f3c0-4076-8c1c-564e7dce16c9
+// cf7fec3e-55bf-426d-8a6f-2ca752ae34ac
+// 3580f482-7f12-4787-bb60-c98023d47b6c
+// 1acbb68a-a859-49c9-ac88-d9e9322bac55
+
+
+//----------------------------------------------------------------------------
+// For DELETE
+// URL (DELETE): http://localhost:8080/ch12/mydocuments/document/{id}
+
+// 431cddbf-f3c0-4076-8c1c-564e7dce16c9
+// cf7fec3e-55bf-426d-8a6f-2ca752ae34ac
+// 3580f482-7f12-4787-bb60-c98023d47b6c
+// 1acbb68a-a859-49c9-ac88-d9e9322bac55
+
+
+//----------------------------------------------------------------------------
+//FOR UPDATE
+// URL (PUT): http://localhost:8080/ch12/mydocuments/document/{id}
+
+// 431cddbf-f3c0-4076-8c1c-564e7dce16c9
+// cf7fec3e-55bf-426d-8a6f-2ca752ae34ac
+// 3580f482-7f12-4787-bb60-c98023d47b6c
+// 1acbb68a-a859-49c9-ac88-d9e9322bac55
+
+
+ID: 1acbb68a-a859-49c9-ac88-d9e9322bac55
+
+{
+    "name": "Book Template 2.pdf",
+    "location": "/docs/isfbook/Documents/Random/Book Template 2.pdf",
+    "description": "A Book Template version 2"
+}
